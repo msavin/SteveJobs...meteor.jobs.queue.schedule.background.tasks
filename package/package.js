@@ -8,7 +8,7 @@ Package.describe({
 
 Package.onUse(function(api) {
     api.versionsFrom('1.3');
-	api.use(["mongo", "random", "ecmascript", "check"], "server");
+	api.use(["mongo", "random", "ecmascript", "check", "promise"], "server");
 	api.mainModule("server/api.js", "server");
 	api.export(["Jobs", "JobsInternal"]);
 });

@@ -1,9 +1,10 @@
+import { Promise } from "meteor/promise"
 import { Utilities } from "../../utilities"
 import { toolbelt } from "./toolbelt.js"
 import { reschedule } from "../reschedule/"
 
 var process = function (doc, callback) {
-	// Goals: 
+	// Goals:
 	// 1- Execute the job
 	// 2- Update the document in database
 	// 3- Capture the result (if any)
@@ -11,7 +12,8 @@ var process = function (doc, callback) {
 	var Toolbelt = new toolbelt(doc);
 
 	try {
-		var jobResult = Utilities.registry.data[doc.name].apply(Toolbelt, doc.arguments);
+		var res = Utilities.registry.data[doc.name].apply(Toolbelt, doc.arguments);
+		var jobResult = Promise.await(Promise.resolve(res));
 		var resolution = Toolbelt.checkForResolution();
 
 		if (typeof callback === "function") {
@@ -21,9 +23,9 @@ var process = function (doc, callback) {
 		}
 	}
 
-	catch (e) {		
+	catch (e) {
 		var failure = Toolbelt.failure();
-		
+
 		Utilities.logger("Job failed to run due to code error: " + doc.name)
 		console.log(e);
 
