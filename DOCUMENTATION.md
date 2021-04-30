@@ -152,7 +152,7 @@ The configuration object supports the following inputs:
 	- The default priority for each job is 0
 	- If you set it to a positive integer, it will run ahead of other jobs.
 	- If you set it to a negative integer, it will only run after all the zero or positive jobs have completed.
-- **`date`** - Function
+- **`date`** - Date Object
 	- Provide your own date. This stacks with the `in` and `on` operator, and will be applied before they perform their operations.
 * **`unique`** - Boolean
 	- If a job is marked as unique, it will only be scheduled if no other job exists with the same arguments
